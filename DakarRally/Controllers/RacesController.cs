@@ -106,7 +106,8 @@ namespace DakarRally.Controllers
             + "6. GET api/statistic/leaderboard \n"
             + "7. GET api/statistic/leaderboard/type \n"
             + "8. GET api/statistic/vehicles/{id} \n"
-            + "9. GET api/statistic/vehicles/filter/?team={}?model={}?date={}?isFinish=?distance={}";
+            + "9. GET api/statistic/vehicles/filter/?team={}?model={}?date={}?isFinish=?distance={} \n"
+            + "10. GET api/statistic/races/{id} \n";
         }
     }
 }
