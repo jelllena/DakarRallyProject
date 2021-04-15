@@ -1,6 +1,7 @@
-﻿using DakarRally.DbModel;
+using DakarRally.DbModel;
 using DakarRally.Repository;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 
 namespace DakarRally.Services
@@ -21,6 +22,7 @@ namespace DakarRally.Services
         public void RunRace(int raceId)
         {
             var race = _context.Race.Include(x => x.Vehicles).FirstOrDefault(x => x.Id == raceId);
+            if (race == null || race.Vehicles.Count == 0) return;
 
             do
             {
@@ -60,11 +62,14 @@ namespace DakarRally.Services
                         continue;
                     }
 
-                    //add distance
-                    var newDistance = raceVehicleStatistic.Distance + vehicle.Velocity;
+                    //calculate distance per hour
+                    Random r = new Random();
+                    var velocityDeviation = ((double)r.Next(8, 10)) / 10;
+                    var newDistance = raceVehicleStatistic.Distance + (vehicle.Velocity * velocityDeviation);
                     var isFinish = newDistance >= Race.Distance;
-                    raceVehicleStatistic.Distance = isFinish ? Race.Distance : newDistance; 
+                    raceVehicleStatistic.Distance = isFinish ? Race.Distance :  Math.Round(newDistance, 2); 
                     raceVehicleStatistic.isFinish = isFinish;
+                    
                     _statisticRepository.SaveRaceVehicleStatistic(raceVehicleStatistic);
 
                     if (isFinish)
