@@ -45,7 +45,7 @@ namespace DakarRally.Repository
                               Distance = s.Distance,
                               FinshTime = s.FinishTimeHours,
                               IsFinishRace = s.isFinish
-                          }).OrderBy(x => x.IsFinishRace).OrderByDescending(x => x.FinshTime);
+                           }).OrderByDescending(x => x.IsFinishRace).ThenBy(x => x.FinshTime);
 
             return result;
         }
@@ -133,6 +133,5 @@ namespace DakarRally.Repository
             return result;
 
         }
-
     }
 }
