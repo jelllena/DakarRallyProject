@@ -65,9 +65,7 @@ namespace DakarRally.Controllers
             {
                 return NotFound($"Race id {id}");
             }
-
-            _raceService.RunRace(id);
-
+            
             return race;
         }
 
